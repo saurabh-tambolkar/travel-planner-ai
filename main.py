@@ -106,14 +106,16 @@ builder.add_edge("hotel_agent", "itinerary_agent")
 builder.add_edge("itinerary_agent", "final_agent")
 builder.add_edge("final_agent", END)
 
-if psycopg is None or PostgresSaver is None or not database_url:
-    # fallback: no postgres checkpointing
-    graph = builder.compile()
-else:
-    conn = psycopg.connect(database_url, autocommit=True)
-    checkpointer = PostgresSaver(conn)
-    checkpointer.setup()
-    graph = builder.compile(checkpointer=checkpointer)
+# if psycopg is None or PostgresSaver is None or not database_url:
+#     # fallback: no postgres checkpointing
+#     graph = builder.compile()
+# else:
+#     conn = psycopg.connect(database_url, autocommit=True)
+#     checkpointer = PostgresSaver(conn)
+#     checkpointer.setup()
+#     graph = builder.compile(checkpointer=checkpointer)
+
+graph = builder.compile()
 
 print(graph)
 
